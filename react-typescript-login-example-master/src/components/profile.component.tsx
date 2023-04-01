@@ -54,6 +54,22 @@ export default class Profile extends Component<Props, State> {
               {currentUser.id}
             </p>
             <p>
+              <strong>Name:</strong>{" "}
+              {currentUser.name}
+            </p>
+            <p>
+              <strong>Phone:</strong>{" "}
+              {currentUser.phone}
+            </p>
+            <p>
+              <strong>Address:</strong>{" "}
+              {currentUser.address}
+            </p>
+            <p>
+              <strong>BankDetails:</strong>{" "}
+              {currentUser.bankdetails}
+            </p>
+            <p>
               <strong>Email:</strong>{" "}
               {currentUser.email}
             </p>

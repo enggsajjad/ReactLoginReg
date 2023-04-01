@@ -7,6 +7,10 @@ import AuthService from "../services/auth.service";
 type Props = {};
 
 type State = {
+  name: string,
+  phone: string,
+  address: string,
+  bankdetails: string,
   username: string,
   email: string,
   password: string,
@@ -20,6 +24,10 @@ export default class Register extends Component<Props, State> {
     this.handleRegister = this.handleRegister.bind(this);
 
     this.state = {
+      name:"",
+      phone:"",
+      address:"",
+      bankdetails:"",
       username: "",
       email: "",
       password: "",
@@ -30,6 +38,46 @@ export default class Register extends Component<Props, State> {
 
   validationSchema() {
     return Yup.object().shape({
+      name: Yup.string()
+        .test(
+          "len",
+          "The name must be between 3 and 20 characters.",
+          (val: any) =>
+            val &&
+            val.toString().length >= 3 &&
+            val.toString().length <= 20
+        )
+        .required("This field is required!"),
+      phone: Yup.string()
+        .test(
+          "len",
+          "The phone must be between 10 and 20 characters.",
+          (val: any) =>
+            val &&
+            val.toString().length >= 10 &&
+            val.toString().length <= 20
+        )
+        .required("This field is required!"),
+      address: Yup.string()
+        .test(
+          "len",
+          "The address must be between 20 and 100 characters.",
+          (val: any) =>
+            val &&
+            val.toString().length >= 20 &&
+            val.toString().length <= 100
+        )
+        .required("This field is required!"),
+      bankdetails: Yup.string()
+        .test(
+          "len",
+          "The bank details must be between 5 and 20 characters.",
+          (val: any) =>
+            val &&
+            val.toString().length >= 5 &&
+            val.toString().length <= 20
+        )
+        .required("This field is required!"),
       username: Yup.string()
         .test(
           "len",
@@ -56,8 +104,8 @@ export default class Register extends Component<Props, State> {
     });
   }
 
-  handleRegister(formValue: { username: string; email: string; password: string }) {
-    const { username, email, password } = formValue;
+  handleRegister(formValue: { name: string; phone: string; address: string; bankdetails: string; username: string; email: string; password: string }) {
+    const { name, phone, address, bankdetails, username, email, password } = formValue;
 
     this.setState({
       message: "",
@@ -65,6 +113,10 @@ export default class Register extends Component<Props, State> {
     });
 
     AuthService.register(
+      name,
+      phone,
+      address,
+      bankdetails,
       username,
       email,
       password
@@ -95,6 +147,10 @@ export default class Register extends Component<Props, State> {
     const { successful, message } = this.state;
 
     const initialValues = {
+      name: "",
+      phone: "",
+      address:"",
+      bankdetails:"",
       username: "",
       email: "",
       password: "",
@@ -117,6 +173,46 @@ export default class Register extends Component<Props, State> {
             <Form>
               {!successful && (
                 <div>
+                  <div className="form-group">
+                    <label htmlFor="name"> Fullname </label>
+                    <Field name="name" type="text" className="form-control" />
+                    <ErrorMessage
+                      name="name"
+                      component="div"
+                      className="alert alert-danger"
+                    />
+                  </div>
+
+                  <div className="form-group">
+                    <label htmlFor="phone"> PhoneNo </label>
+                    <Field name="phone" type="text" className="form-control" />
+                    <ErrorMessage
+                      name="phone"
+                      component="div"
+                      className="alert alert-danger"
+                    />
+                  </div>
+
+                  <div className="form-group">
+                    <label htmlFor="address"> Address </label>
+                    <Field name="address" type="text" className="form-control" />
+                    <ErrorMessage
+                      name="address"
+                      component="div"
+                      className="alert alert-danger"
+                    />
+                  </div>
+
+                  <div className="form-group">
+                    <label htmlFor="bankdetails"> BankDetails </label>
+                    <Field name="bankdetails" type="text" className="form-control" />
+                    <ErrorMessage
+                      name="bankdetails"
+                      component="div"
+                      className="alert alert-danger"
+                    />
+                  </div>
+
                   <div className="form-group">
                     <label htmlFor="username"> Username </label>
                     <Field name="username" type="text" className="form-control" />
